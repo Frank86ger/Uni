@@ -5,11 +5,10 @@ import math
 
 T = 50			# Maximale Zeit
 h0 = 0.01		# Start-Schrittweite
-steps = 20000		# Anzahl maximaler Schritte (so gross waehlen, dass genug Platz fuer Werte vorhanden ist)
+steps = 900000		# Anzahl maximaler Schritte (so gross waehlen, dass genug Platz fuer Werte vorhanden ist)
 var_count = 2		# Anzahl der dynamischen Variablen
-eps_tol = 0.1		# Epsilon-Toleranz
+eps_tol = 1.e-10	# Epsilon-Toleranz
 b_fak = 0.9		# Sicherheitsfaktor
-eps_ampli = 1		# Vermehrungsamplitude
 
 # Startwerte der dynamischen Variablen
 dyn_var_start = [5000, 120]
@@ -53,7 +52,7 @@ eps_sum[0] = 0
 
 # Funktionen f. t skalar; x vektoriell
 def dyn_var_func1(t, x):
-	return 2*(1+eps_ampli*math.sin(math.pi*t))*x[0]-0.02*x[0]*x[1]
+	return 2*x[0]-0.02*x[0]*x[1]
 def dyn_var_func2(t, x):
 	return 0.0002*x[0]*x[1]-0.8*x[1]
 # Array obiger Funktionen
@@ -124,7 +123,7 @@ for i in range(0, counter):
 fig, axes = plt.subplots(1,2)
 (ax1, ax2) = axes
 
-ax1.set_title('x0 = 5000 / y0 = 120 / epsilon = 1')
+ax1.set_title('x0 = 5000 / y0 = 120')
 ax1.set_xlabel('Zeit t')
 ax1.set_ylabel('Population x(t) / y(t)')
 ax1.plot(t_array_trimmed, dyn_var_trimmed[0], 'bo')
