@@ -1,0 +1,26 @@
+#!/usr/bin/gnuplot
+set terminal png size 1200,600
+set cbrange[0.0:7.0]
+set notitle
+set xrange[I_OFFSET:IMAX]
+set yrange[I_OFFSET:IMAX]
+set size square
+
+
+do for [t=0:MAXSTEPS] {
+    outfile = sprintf('pic%04.0f.png',t)
+    set output outfile
+    set multiplot layout 1,2 rowsfirst
+    set title 'U'
+    plot sprintf('Bruss_u%04.0f',t) u ($1*SCALE + I_OFFSET):($2*SCALE + I_OFFSET):3 matrix with image notitle
+    set title 'V'
+    plot sprintf('Bruss_v%04.0f',t) u ($1*SCALE + I_OFFSET):($2*SCALE + I_OFFSET):3 matrix with image notitle
+    unset multiplot
+}
+set output PICNAME
+set multiplot layout 1,2 rowsfirst
+set title 'U'
+plot 'BrussENDU0000' u ($1*SCALE + I_OFFSET):($2*SCALE + I_OFFSET):3 matrix with image notitle
+set title 'V'
+plot 'BrussENDV0000' u ($1*SCALE + I_OFFSET):($2*SCALE + I_OFFSET):3 matrix with image notitle
+unset multiplot
