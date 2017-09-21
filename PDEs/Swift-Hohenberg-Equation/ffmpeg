@@ -1,0 +1,1 @@
+ffmpeg -r 25 -qscale 2 -i pic%04d.png out.mp4
